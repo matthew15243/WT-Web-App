@@ -69,13 +69,13 @@ function setupStudentGrades(studentUID) {
 
   for (let i = 0; i < 8; i++) {
     let newRow = document.createElement('th');
-    newRow.innerHTML = `<div><span contentEditable onfocusout="updateCurrentClasses()">${classes[i] ?? 'no class'}</span></div>`;
+    newRow.innerHTML = `<div><span contentEditable="true" onfocusout="updateCurrentClasses()">${classes[i] ?? 'no class'}</span></div>`;
     newRow.classList.add('rotate-45');
     document.getElementById('gradeTableHeaders').appendChild(newRow)
   }
   //add in the blank space
   let newRow = document.createElement('th');
-  newRow.innerHTML = `<div><span</span></div>`;
+  newRow.innerHTML = `<div style='display: none;'><span></span></div>`;
   newRow.classList.add('rotate-45');
   document.getElementById('gradeTableHeaders').appendChild(newRow)
 
