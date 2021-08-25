@@ -10,6 +10,24 @@ body {
   width: 100vw;
 }
 
+#topNavigationBanner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  background-color: rgb(210, 210, 210);
+  height: 9vh;
+  width: 99vw;
+  z-index: 1;
+  padding-left: 1vw;
+}
+
+#logo {
+  height: calc(0.75 * 9vh);
+  width: calc(0.75 * 2.51 * 9vh);
+  cursor: pointer;
+}
+
 #student-general-info {
   user-select: none;
   -webkit-user-select: none; /* webkit (safari, chrome) browsers */
@@ -41,7 +59,7 @@ body {
 
 #generalStudentMessageDiv {
   width: 100%;
-  height: 80vh;
+  height: 71vh;
   border-color: black;
   border-style: solid;
   border-radius: 10px;
@@ -52,7 +70,7 @@ body {
 
 #gradesContainer {
   width: 100%;
-  height: 80vh;
+  height: 71vh;
   border-color: black;
   border-style: solid;
   border-radius: 10px;
