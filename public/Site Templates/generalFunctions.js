@@ -74,6 +74,24 @@ function setObjectValue(propertyPath, value, obj) {
 }
 
 /**
+ * 
+ * @param {HTMLElement} selectElement the select element that should be populated with options
+ * @param {Array} optionValues the options' values
+ * @param {Array} optionTexts the options' text contents
+ */
+ function addSelectOptions(selectElement, optionValues, optionTexts) {
+  //check that the values and texts match in length
+  if (optionValues.length != optionTexts.length) {throw "option values and options texts must have the same number of elements"}
+  
+  optionValues.forEach((optionValue, index) => {
+    let option = document.createElement('option');
+    option.value = optionValue;
+    option.textContent = optionTexts[index];
+    selectElement.appendChild(option);
+  });
+}
+
+/**
  * create html element
  * @param {String} elementType tag name for the element that will be created
  * @param {[String]} classes classes for the element
