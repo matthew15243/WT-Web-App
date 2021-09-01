@@ -7,10 +7,37 @@ function initialSetup() {
   //set up the semantic ui dropdowns
   $('.ui.dropdown').dropdown();
 
-  setLocations();
-  setExtracurriculars();
-  setupDuplicates();
-  fillInData();
+  getAllLocations()
+  .then((locations) => {
+    let locationNames = []
+    let locationUIDs = []
+
+    locations.forEach(location => {
+      locationNames.push(location.name);
+      locationUIDs.push(location.id);
+    })
+    addSelectOptions(document.getElementById("location"), locationUIDs, locationNames);
+
+    setExtracurriculars();
+    setupDuplicates();
+    fillInData();
+  });
+}
+
+function getAllLocations() {
+  return firebase.firestore().collection('Locations').get()
+  .then((locationSnapshot) => {
+    let locationData = [];
+
+    locationSnapshot.forEach(locationDoc => {
+      locationData.push({
+        id: locationDoc.id,
+        name: locationDoc.data().locationName
+      });
+    })
+
+    return locationData;
+  })
 }
 
 /*****************************************************************************
