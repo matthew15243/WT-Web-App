@@ -35,17 +35,14 @@ body {
 
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   width: calc(100% - 500px);
 }
 
 .expectation-input {
   font-size: 1em;
   font-weight: bold;
-  width: 500px;
-  height: 4.5em;
   border-width: 2px;
-  display: block;
+  flex: 1;
 }
 
 #generalStudentMessageDiv {
