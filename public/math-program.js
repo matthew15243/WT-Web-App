@@ -325,7 +325,7 @@ function submitLessons() {
                 lessonsRef = firebase.firestore().collection('Students').doc(student).collection('Math-Program').doc('lessons')
 
                 lessonsRef.set(current_lesson_data).then(() => goToDashboard())
-                .catch((error) => reject('Fb error:' + error))
+                .catch((error) => console.log('Fb error:' + error))
               }
             }
             else {
