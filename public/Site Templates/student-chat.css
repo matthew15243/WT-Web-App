@@ -88,6 +88,7 @@
 .studentMessage.important {
   border-color: #80CBC4;
   border-style: solid;
+  background-color: #C351E0;
 }
 
 .studentMessage.error {
