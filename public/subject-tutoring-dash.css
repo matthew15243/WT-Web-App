@@ -53,6 +53,7 @@ body {
   font-weight: bold;
   border-width: 2px;
   flex: 1;
+  margin-right: 20px;
 }
 
 #generalStudentMessageDiv {
