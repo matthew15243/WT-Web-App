@@ -2139,6 +2139,22 @@ function openTest(test, section = undefined) {
   ref.getDownloadURL().then((url) => {
       open(url);
     })
+    .catch((error) => {
+      console.log('The test', test, 'does not exist')
+    })
+
+}
+
+function openTestAnswers(test) {
+
+  let path = 'Test Answers (' + test + ')'
+  let ref = storage.refFromURL('gs://wasatch-tutors-web-app.appspot.com/Tests/' + path + '.pdf');
+  ref.getDownloadURL().then((url) => {
+      open(url);
+    })
+    .catch((error) => {
+      console.log('The test', test, 'does not have an answer key')
+    })
 
 }
 
