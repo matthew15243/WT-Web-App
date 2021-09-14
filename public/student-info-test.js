@@ -108,13 +108,17 @@ function setChartData(studentUID) {
       'science' : 0
     }
 
+    const composite1 = (initialScores['english'] + initialScores['math'] + initialScores['reading'] + initialScores['science']) / 4
+    const composite2 = roundedAvgUnfiltered([initialScores['english'], initialScores['math'], initialScores['reading'], initialScores['science']])
+    const offset = (composite2 - composite1) * 4
+
     for (let i = 0; i < sectionData['english'].length; i++) {
       for (let j = 0; j < sections.length; j++) {
         if (sectionData[sections[j]][i] != undefined) {
           currentScores[sections[j]] = sectionData[sections[j]][i]
         }
       }
-      sectionData['composite'].push(roundedAvgUnfiltered([currentScores['english'], currentScores['math'], currentScores['reading'], currentScores['science']]))
+      sectionData['composite'].push(roundedAvgUnfiltered([currentScores['english'] - offset, currentScores['math'], currentScores['reading'], currentScores['science']]))
     }
 
     // Change Int dates to string dates (and add 'Initial')
@@ -493,7 +497,6 @@ function updateChart(section, addPoint = true, value = undefined) {
   // Get the section index
   for (let i = 0; i < currentDatasets.length; i++) {
     if (currentDatasets[i]['label'].toLowerCase() == section) {
-      console.log(section, currentDatasets[i]['label'], i)
       location = i
     }
   }
@@ -531,7 +534,6 @@ function updateChart(section, addPoint = true, value = undefined) {
 
       // Get the delta
       const diff = (value - lastValue) / 4
-      console.log('calc diff:', value, lastValue, diff)
 
       // Get the latest composite value for adding the delta to
       j = 1;
@@ -540,7 +542,6 @@ function updateChart(section, addPoint = true, value = undefined) {
         lastValue = charts[sec]['data']['datasets'][i]['data'][charts[sec]['data']['datasets'][i]['data'].length - j]
         j += 1
       }
-      console.log(lastValue, diff)
       if (push == true) {
         charts[sec]['data']['datasets'][i]['data'].push(lastValue + diff)
       }
