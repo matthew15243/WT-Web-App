@@ -496,7 +496,7 @@ function deleteStaff(staffUID, staffName, staffType) {
       uid: staffUID
     })
     .then(() => {
-      firebase.firestore().collection(staffType + 's').doc(staffUID).delete()
+      return firebase.firestore().collection(staffType + 's').doc(staffUID).delete();
     })
     .catch((error) => {
       alert(error);
