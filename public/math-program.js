@@ -35,6 +35,11 @@ let grade_element = document.getElementById('student-grade')
 grade_element.addEventListener('change', (e) => {
   student_grade = e.target.value;
   current_lesson_data['grade'] = student_grade;
+
+  const student = queryStrings()['student'];
+  lessonsRef = firebase.firestore().collection('Users').doc(student).collection('Math-Program').doc('lessons')
+  lessonsRef.update({'grade' : student_grade})
+
   populateLessons()
 })
 
