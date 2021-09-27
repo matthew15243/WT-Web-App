@@ -60,24 +60,28 @@ lesson_list.addEventListener('click', (e) => {
       setObjectValue([student_grade, section, lesson, 'status'], 'needs help', current_lesson_data);
       lesson_flag_counter += 1;
       populateLessons()
+      submitLessons();
     }
     else if (current_lesson_data[student_grade][section][lesson]['status'] == 'needs help') {
       setObjectValue([student_grade, section, lesson, 'date'], session_date.getTime(), current_lesson_data);
       setObjectValue([student_grade, section, lesson, 'status'], 'assigned', current_lesson_data);
       lesson_flag_counter += 1;
       populateLessons()
+      submitLessons();
     }
     else if (current_lesson_data[student_grade][section][lesson]['status'] == 'assigned') {
       setObjectValue([student_grade, section, lesson, 'date'], session_date.getTime(), current_lesson_data);
       setObjectValue([student_grade, section, lesson, 'status'], 'mastered', current_lesson_data);
       lesson_flag_counter += 1;
       populateLessons()
+      submitLessons();
     }
     else if (current_lesson_data[student_grade][section][lesson]['status'] == 'mastered') {
       setObjectValue([student_grade, section, lesson, 'date'], 0, current_lesson_data);
       setObjectValue([student_grade, section, lesson, 'status'], 'not assigned', current_lesson_data);
       lesson_flag_counter -= 3;
       populateLessons()
+      submitLessons();
     }
   }
 })
@@ -315,33 +319,33 @@ function submitLessons() {
     if (user) {
         user.getIdTokenResult()
         .then((idTokenResult) => {
-          let role = idTokenResult.claims.role;
-          if (note_flag == true || role == 'admin' || role == 'dev') {
-            if (lesson_flag_counter > 0 || role == 'admin' || role == 'dev') {
-              let confirmation = undefined
-              if (role == 'admin' || role == 'dev') {
-                confirmation = window.confirm("Are you sure you are ready submit your changes");
-              }
-              else {
-                confirmation = window.confirm("Are you sure you are ready to submit this session?");
-              }
-              if (confirmation == true) {
+          //let role = idTokenResult.claims.role;
+          //if (note_flag == true || role == 'admin' || role == 'dev') {
+            //if (lesson_flag_counter > 0 || role == 'admin' || role == 'dev') {
+              //let confirmation = undefined
+              //if (role == 'admin' || role == 'dev') {
+                //confirmation = window.confirm("Are you sure you are ready submit your changes");
+              //}
+              //else {
+                //confirmation = window.confirm("Are you sure you are ready to submit this session?");
+              //}
+              //if (confirmation == true) {
                 let student = queryStrings()['student'];
                 lessonsRef = firebase.firestore().collection('Students').doc(student).collection('Math-Program').doc('lessons')
 
-                lessonsRef.set(current_lesson_data).then(() => goToDashboard())
-                .catch((error) => console.log('Fb error:' + error))
-              }
-            }
-            else {
-              document.getElementById('errorMessage').style.display = 'block'
-              document.getElementById('errorMessage').innerHTML = 'Please mark a lesson'
-            }
-          }
-          else {
-            document.getElementById('errorMessage').style.display = 'block'
-            document.getElementById('errorMessage').innerHTML = 'Please enter a comment for what occurred during the session'
-          }
+                lessonsRef.set(current_lesson_data)//.then(() => goToDashboard())
+                //.catch((error) => console.log('Fb error:' + error))
+              //}
+            //}
+            //else {
+              //document.getElementById('errorMessage').style.display = 'block'
+              //document.getElementById('errorMessage').innerHTML = 'Please mark a lesson'
+            //}
+          //}
+          //else {
+            //document.getElementById('errorMessage').style.display = 'block'
+            //document.getElementById('errorMessage').innerHTML = 'Please enter a comment for what occurred during the session'
+          //}
       })
       .catch((error) => {
       handleFirebaseErrors(error, window.location.href);

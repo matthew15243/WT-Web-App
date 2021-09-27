@@ -40,25 +40,29 @@ lesson_list.addEventListener('click', (e) => {
       setObjectValue([section, lesson, 'date'], session_date.getTime(), current_lesson_data);
       setObjectValue([section, lesson, 'status'], 'needs help', current_lesson_data);
       lesson_flag_counter += 1;
-      populateLessons()
+      populateLessons();
+      submitLessons();
     }
     else if (current_lesson_data[section][lesson]['status'] == 'needs help') {
       setObjectValue([section, lesson, 'date'], session_date.getTime(), current_lesson_data);
       setObjectValue([section, lesson, 'status'], 'assigned', current_lesson_data);
       lesson_flag_counter += 1;
       populateLessons()
+      submitLessons();
     }
     else if (current_lesson_data[section][lesson]['status'] == 'assigned') {
       setObjectValue([section, lesson, 'date'], session_date.getTime(), current_lesson_data);
       setObjectValue([section, lesson, 'status'], 'mastered', current_lesson_data);
       lesson_flag_counter += 1;
       populateLessons()
+      submitLessons();
     }
     else if (current_lesson_data[section][lesson]['status'] == 'mastered') {
       setObjectValue([section, lesson, 'date'], 0, current_lesson_data);
       setObjectValue([section, lesson, 'status'], 'not assigned', current_lesson_data);
       lesson_flag_counter -= 3;
       populateLessons()
+      submitLessons();
     }
   }
 })
@@ -287,31 +291,31 @@ function submitLessons() {
     if (user) {
         user.getIdTokenResult()
         .then((idTokenResult) => {
-          let role = idTokenResult.claims.role;
-          if (note_flag == true || role == 'admin' || role == 'dev') {
-            if (lesson_flag_counter > 0 || role == 'admin' || role == 'dev') {
-              let confirmation = undefined
-              if (role == 'admin' || role == 'dev') {
-                confirmation = window.confirm("Are you sure you are ready submit your changes");
-              }
-              else {
-                confirmation = window.confirm("Are you sure you are ready to submit this session?");
-              }
-              if (confirmation == true) {
+          //let role = idTokenResult.claims.role;
+          //if (note_flag == true || role == 'admin' || role == 'dev') {
+            //if (lesson_flag_counter > 0 || role == 'admin' || role == 'dev') {
+              //let confirmation = undefined
+              //if (role == 'admin' || role == 'dev') {
+                //confirmation = window.confirm("Are you sure you are ready submit your changes");
+              //}
+              //else {
+                //confirmation = window.confirm("Are you sure you are ready to submit this session?");
+              //}
+              //if (confirmation == true) {
                 let student = queryStrings()['student'];
                 lessonsRef = firebase.firestore().collection('Students').doc(student).collection('Phonics-Program').doc('lessons')
 
-                lessonsRef.set(current_lesson_data).then(() => goToDashboard())
-                .catch((error) => reject('Fb error:' + error))
-              }
-            }
-            else {
-              document.getElementById('errorMessage').innerHTML = 'Please mark a lesson'
-            }
-          }
-          else {
-            document.getElementById('errorMessage').innerHTML = 'Please enter a comment for what occurred during the session'
-          }
+                lessonsRef.set(current_lesson_data)//.then(() => goToDashboard())
+                //.catch((error) => reject('Fb error:' + error))
+              //}
+            //}
+            //else {
+              //document.getElementById('errorMessage').innerHTML = 'Please mark a lesson'
+            //}
+          //}
+          //else {
+            //document.getElementById('errorMessage').innerHTML = 'Please enter a comment for what occurred during the session'
+          //}
       })
       .catch((error) => {
       handleFirebaseErrors(error, window.location.href);
