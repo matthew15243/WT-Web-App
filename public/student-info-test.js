@@ -32,9 +32,6 @@ function setChartData(studentUID) {
       }
     }
 
-    //calculate hours based on the dates and throw it in.
-    document.getElementById('studentSessionHours').textContent = dates.length * 2;
-    
     // Sort the data
     dates = dates.sort()
     let tempData = []
@@ -127,6 +124,9 @@ function setChartData(studentUID) {
       tmp.push(convertFromDateInt(dates[i])['shortestDate'])
     }
     dates = tmp
+
+    //calculate hours based on the dates and throw it in.
+    document.getElementById('studentSessionHours').textContent = dates.length * 2;
 
     // Generate the charts
     chartsSetup()
