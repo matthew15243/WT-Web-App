@@ -1260,6 +1260,54 @@ span:hover + .wrap a, .wrap:hover a{
   border-color: #E94045;
 }
 
+#sessionInput {
+  margin-top: 2em;
+} 
+
+#sessionInput label {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: white;
+}
+
+#sessionInput input {
+  width: 200px;
+  height: 2em;
+}
+
+#sessionInput .buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+#sessionInput button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 1em;
+  color: white;
+  background-color: #3F4458;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 1em 1em 0em 0em;
+  text-decoration: none;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+#studentGeneralInfoContainer .sessions {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: black;
+  margin-top: .5em;
+}
+
+#sessionData {
+  font-size: 1em;
+  font-weight: 700;
+  color: white;
+}
+
 #studentProfilePic {
   height: 100px;
   width: 100px;

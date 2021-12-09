@@ -93,16 +93,18 @@
                     Post-Tests
                     <div class="addRemove" onclick="removeGeneralInfoPostTestRow()">-</div>
                 </div>
-                <div id = 'sessionInput'>
-                    <label for = 'sessionDate'>Session Date</label>
-                    <input type="date" id="sessionDate">
-                    <button type = 'button' onclick="addSession()">Add Session</button>
-                    <button type = 'button' onclick = "removeSession()">Remove Session</button>
-                </div>
-
-                <div id = 'sessionData'>
+            </div>
+            <div id = 'sessionInput'>
+                <label for = 'sessionDate'>Session Date</label>
+                <input type="date" id="sessionDate">
+                <div class="buttons">
+                    <button onclick="addSession()">Add Session</button>
+                    <button onclick = "removeSession()">Remove Session</button>
                 </div>
             </div>
+
+            <p class="sessions">Sessions</p>
+            <div id = 'sessionData'></div>
         </div>
     </section>
 
