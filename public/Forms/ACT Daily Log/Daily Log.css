@@ -1399,3 +1399,12 @@ span:hover + .wrap a, .wrap:hover a{
   top: 0px;
   left: 100%;
 }*/
+
+.markSession {
+  background-color: green;
+}
+
+#sessionInput {
+  display: flex;
+  flex-direction: column;
+}

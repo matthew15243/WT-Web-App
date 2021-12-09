@@ -93,6 +93,15 @@
                     Post-Tests
                     <div class="addRemove" onclick="removeGeneralInfoPostTestRow()">-</div>
                 </div>
+                <div id = 'sessionInput'>
+                    <label for = 'sessionDate'>Session Date</label>
+                    <input type="date" id="sessionDate">
+                    <button type = 'button' onclick="addSession()">Add Session</button>
+                    <button type = 'button' onclick = "removeSession()">Remove Session</button>
+                </div>
+
+                <div id = 'sessionData'>
+                </div>
             </div>
         </div>
     </section>
@@ -328,6 +337,9 @@
                     </button>
                     <button id = 'submitSession' onclick = "submitSession()" class='item itemB2 cursor'>
                         Submit Session
+                    </button>
+                    <button id = 'markSession' onclick = "markSession('toggle')" class='item itemB2 cursor'>
+                        Mark Session
                     </button>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 let test_answers_data = {};
 let test_answers_grading = {};
 let ids = [];
+let sessions = []
 
 // Student test information
 let student_tests = {};
@@ -2803,3 +2804,108 @@ function transferChatMessages() {
 /*firebase.firestore().collection('Student-Chats').get().then((querySnapshot) => {
   console.log(querySnapshot.size)
 })*/
+
+function markSession(action = 'toggle') {
+  let dom_markSession = document.getElementById('markSession')
+
+  // Toggle the background color
+  if (action == 'toggle') {
+    const ref = firebase.firestore().collection('Sessions').doc(CURRENT_STUDENT_UID)
+    dom_markSession.classList.toggle('markSession')
+
+    if (dom_markSession.classList.value.includes('markSession')) {
+        sessions.push(convertFromDateInt(date.getTime())['startOfDayInt'])
+    }
+    else {
+      sessions.splice(-1, 1)
+    }
+
+    ref.set({
+      'sessions' : sessions
+    })
+
+    .then(() => {
+      displaySessionData()
+      console.log("Sessions set")
+    })
+  }
+  else if (action == 'initialize') {
+    if (sessions.includes(convertFromDateInt(date.getTime())['startOfDayInt'])) {
+      dom_markSession.classList.add('markSession')
+    }
+    else {
+      dom_markSession.classList.remove('markSession')
+    }
+  }
+}
+
+function addSession() {
+  const sessionDate = document.getElementById('sessionDate').value
+  const ref = firebase.firestore().collection('Sessions').doc(CURRENT_STUDENT_UID)
+  if (!sessions.includes(convertFromDateInt(Date.parse(sessionDate) + 36000000)['startOfDayInt'])) {
+    sessions.push(convertFromDateInt(Date.parse(sessionDate) + 36000000)['startOfDayInt'])
+    ref.set({
+      'sessions' : sessions
+    })
+
+    .then(() => {
+      console.log("Sessions set")
+      markSession('initialize')
+      displaySessionData()
+    })
+  }
+}
+
+function removeSession() {
+  const sessionDate = document.getElementById('sessionDate').value
+  const ref = firebase.firestore().collection('Sessions').doc(CURRENT_STUDENT_UID)
+  if (sessions.includes(convertFromDateInt(Date.parse(sessionDate) + 36000000)['startOfDayInt'])) {
+    const index = sessions.indexOf(convertFromDateInt(Date.parse(sessionDate) + 36000000))['startOfDayInt']
+    if (index !== -1) {
+      sessions.splice(index, 1);
+    }
+
+    ref.set({
+      'sessions' : sessions
+    })
+
+    .then(() => {
+      console.log("Sessions set")
+      markSession('initialize')
+      displaySessionData()
+    })
+  }
+}
+
+function displaySessionData() {
+  let dom_sessionData = document.getElementById('sessionData')
+
+  // Remove all children
+  let children = dom_sessionData.querySelectorAll('div')
+  const count = children.length
+  for (let i = 0; i < count; i++) {
+    children[i].remove()
+  }
+
+  // Display all sessions
+  sessions.sort()
+  for (let i = 0; i < sessions.length; i++) {
+    dom_sessionData.appendChild(createElement('div', [], [], [], convertFromDateInt(sessions[i])['shortDate']))
+  }
+
+  document.getElementById('studentSessionHours').textContent = sessions.length * 2;
+}
+
+function initializeSessions() {
+  const ref = firebase.firestore().collection('Sessions').doc(CURRENT_STUDENT_UID)
+  ref.get()
+  .then((doc) => {
+    if (doc.exists) {
+      sessions = doc.data().sessions
+      markSession('initialize')
+      displaySessionData()
+    }
+  })
+}
+
+initializeSessions()
