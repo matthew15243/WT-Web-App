@@ -126,8 +126,8 @@ function setChartData(studentUID) {
     dates = tmp
 
     //calculate hours based on the dates and throw it in.
-    //document.getElementById('studentSessionHours').textContent = dates.length * 2;
-    document.getElementById('studentSessionHours').textContent = sessions.length * 2;
+    document.getElementById('studentSessionHours').textContent = dates.length * 2;
+    // document.getElementById('studentSessionHours').textContent = sessions.length * 2;
 
     // Generate the charts
     chartsSetup()

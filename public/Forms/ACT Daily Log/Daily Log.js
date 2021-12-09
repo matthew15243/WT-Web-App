@@ -2893,7 +2893,7 @@ function displaySessionData() {
     dom_sessionData.appendChild(createElement('div', [], [], [], convertFromDateInt(sessions[i])['shortDate']))
   }
 
-  document.getElementById('studentSessionHours').textContent = sessions.length * 2;
+  // document.getElementById('studentSessionHours').textContent = sessions.length * 2;
 }
 
 function initializeSessions() {
